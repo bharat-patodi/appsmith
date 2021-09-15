@@ -17,3 +17,6 @@ export const getIsGitErrorPopupVisible = (state: AppState) =>
   state.ui.gitSync.isErrorPopupVisible;
 
 export const getGitError = (state: AppState) => state.ui.gitSync.gitError;
+
+export const getIsImportAppViaGitModalOpen = (state: AppState) =>
+  state.ui.gitSync.isImportAppViaGitModalOpen;

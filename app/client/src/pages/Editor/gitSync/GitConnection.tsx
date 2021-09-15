@@ -26,7 +26,7 @@ import { getCurrentOrgId } from "selectors/organizationSelectors";
 import copy from "copy-to-clipboard";
 import { getCurrentAppGitMetaData } from "selectors/applicationSelectors";
 
-const UrlOptionContainer = styled.div`
+export const UrlOptionContainer = styled.div`
   display: flex;
   align-items: center;
 
@@ -126,10 +126,12 @@ const selectedAuthType = AUTH_TYPE_OPTIONS[0];
 // const appsmithGitSshURL = "git@github.com:appsmithorg/appsmith.git";
 
 type Props = {
-  setActiveMenuIndex: (menuIndex: number) => void;
+  onSuccess: () => void;
+  isImport?: boolean;
+  organisationId?: string;
 };
 
-function GitConnection(props: Props) {
+function GitConnection({ isImport, onSuccess, organisationId }: Props) {
   const { remoteUrl: remoteUrlInStore } =
     useSelector(getCurrentAppGitMetaData) || ({} as any);
 
@@ -161,7 +163,7 @@ function GitConnection(props: Props) {
     connectToGit,
     failedConnectingToGit,
     isConnectingToGit,
-  } = useGitConnect({ goToDeploySection: () => props.setActiveMenuIndex(1) });
+  } = useGitConnect({ onSuccess });
 
   const copyToClipboard = () => {
     if (sshKeyPair) {
@@ -181,6 +183,7 @@ function GitConnection(props: Props) {
       remoteUrl,
       gitConfig: authorInfo,
       organizationId: orgId,
+      isImport,
     });
   };
 

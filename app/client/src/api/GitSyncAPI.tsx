@@ -16,6 +16,7 @@ export type ConnectToGitPayload = {
     authorEmail: string;
   };
   organizationId: string;
+  isImport?: boolean;
 };
 
 class GitSyncAPI extends Api {
